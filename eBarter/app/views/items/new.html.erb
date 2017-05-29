@@ -1,0 +1,30 @@
+﻿
+<%= form_for :item, url: items_path do |f| %>
+  <p>
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome %>
+  </p>
+ 
+  <p>
+    <%= f.label :descrição %><br>
+    <%= f.text_area :descricao %>
+  </p>
+  
+  <p>
+    <%= f.label :quantidade %><br>
+    <%= f.text_field :quantidade %>
+  </p>
+	
+	<p>
+		<%= f.collection_select :categoria_id, Categoria.all,:id, :nome, include_blank: true %>
+	</p>
+	
+  <p>
+    <%= f.label :tag %><br>
+    <%= f.text_field :tag %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

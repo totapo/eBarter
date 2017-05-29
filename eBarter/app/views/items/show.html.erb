@@ -1,0 +1,18 @@
+﻿<p>
+  <strong>Nome:</strong>
+  <%= @item.nome %>
+</p>
+ 
+<p>
+  <strong>Descrição:</strong>
+  <%= @item.descricao %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @item.categoria.nome %>
+</p>
+<p>
+  <strong>Mesma Categoria:</strong>
+  <%= @item.categoria.item.size %>
+</p>
