@@ -16,7 +16,7 @@
   </p>
 	
 	<p>
-		<%= f.collection_select :categoria_id, Categoria.all,:id, :nome, include_blank: true %>
+		<%= f.collection_select :categoria_id, Categoria.order(:nome),:id, :nome, include_blank: true %>
 	</p>
 	
   <p>
