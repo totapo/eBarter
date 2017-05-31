@@ -43,11 +43,13 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
+    bcrypt (3.1.11)
     bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
     bootstrap-generators (3.3.4)
       railties (>= 3.1.0)
     builder (3.2.3)
+    byebug (9.0.6)
     capybara (2.14.0)
       addressable
       mime-types (>= 1.16)
@@ -82,6 +84,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
+    ffi (1.9.18)
     ffi (1.9.18-x86-mingw32)
     formatador (0.2.5)
     globalid (0.4.0)
@@ -127,9 +130,12 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    mysql2 (0.4.6)
     mysql2 (0.4.6-x86-mingw32)
     nenv (0.3.0)
     nio4r (2.0.0)
+    nokogiri (1.7.2)
+      mini_portile2 (~> 2.1.0)
     nokogiri (1.7.2-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     notiffany (0.1.1)
@@ -139,6 +145,7 @@ GEM
       addressable
       nokogiri
     orm_adapter (0.5.0)
+    pg (0.20.0)
     pg (0.20.0-x86-mingw32)
     poltergeist (1.15.0)
       capybara (~> 2.1)
@@ -260,6 +267,7 @@ GEM
       nokogiri (~> 1.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
@@ -295,4 +303,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.7
+   1.14.6

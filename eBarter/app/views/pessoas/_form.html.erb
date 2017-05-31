@@ -1,0 +1,44 @@
+<%= form_for :pessoa, url: pessoas_path do |f| %>
+  <p>
+    <%= f.label :Nome %><br>
+    <%= f.text_field :nome %>
+  </p>
+ 
+  <p>
+    <%= f.label :email, "E-mail" %><br>
+    <%= f.text_field :email %>
+  </p>
+  
+  <p>
+    <%= f.label :Senha %><br>
+    <%= f.password_field :senha %>
+  </p>
+	
+	<p>
+    <%= f.label :confirmaSenha, "Confirme Sua senha" %><br>
+    <%= password_field :senhaConfirma, type="text" %>
+  </p>
+	
+  <p>
+    <%= f.label :Cidade %><br>
+    <%= f.text_field :cidade %>
+  </p>
+	
+	<p>
+    <%= f.label :Estado %><br>
+    <%= f.text_field :estado %>
+  </p>
+	
+	<p>
+    <%= f.label :País %><br>
+    <%= f.text_field :pais %>
+  </p>
+	
+	<p>
+			<%= flash[:error]%>
+	</p>
+ 
+  <p>
+    <%= f.submit "Registrar" %>
+  </p>
+<% end %>

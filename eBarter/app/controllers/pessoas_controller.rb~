@@ -9,15 +9,17 @@ class PessoasController < ApplicationController
 	def create
 		
 		@pessoa = Pessoa.new(pessoas_params)
+		if params.require(:pessoa)[:email] == params[:emailConfirma][:text]
 			if params.require(:pessoa)[:senha] == params[:senhaConfirma][:text]
 				if(!@pessoa.save)
-					showError "Preencha todos os campos!"
+					showError @pessoa.errors
 				else
 					redirect_to @pessoa
-				end
 			else 
 				showError "Senhas não conferem!"
-			end
+		else
+			showError "Endereços de E-mail não conferem!"
+		end
 	end
 
 	def showError(message)
