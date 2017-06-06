@@ -1,0 +1,20 @@
+<%= form_tag("/edit_usuario") do %>
+  <p>
+    <%= label_tag :Cidade %><br>
+    <%= text_field_tag :cidade, @pessoa.cidade %>
+  </p>
+
+	<p>
+    <%= label_tag :Estado %><br>
+    <%= text_field_tag :estado, @pessoa.estado %>
+  </p>
+
+	<p>
+    <%= label_tag :País %><br>
+    <%= text_field_tag :pais, @pessoa.pais %>
+  </p>
+
+  <p>
+    <%= submit_tag "Concluir" %>
+  </p>
+<% end %>

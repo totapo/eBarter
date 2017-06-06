@@ -1,4 +1,9 @@
 class PessoasController < ApplicationController
+
+	def index
+		@pessoa = Pessoa.find(session[:id_usuario])
+	end
+
 	def new
 		@pessoa = Pessoa.new
 	end
@@ -6,8 +11,17 @@ class PessoasController < ApplicationController
 	def show
 	end
 
-	def login
+	def update
+		@pessoa = Pessoa.find(session[:id_usuario])
+		Pessoa.update(@pessoa.id, pais: params[:pais], cidade: params[:cidade], estado: params[:estado])
+		redirect_to pessoas_path
+	end
 
+	def edit
+		@pessoa = Pessoa.find(session[:id_usuario])
+		if(!@pessoa)
+			redirect_to login_path
+		end
 	end
 
 	def create
@@ -23,22 +37,10 @@ class PessoasController < ApplicationController
 			end
 	end
 
-	def submitlogin
-		@pessoa = Pessoa.find_by email: login_params[:email], senha: login_params[:senha]
-		if @pessoa
-			session[:user_id] = @pessoa.id;
-		end
-	end
-
 	def showError(message)
 		 flash[:error] = message
 		render :new
 	end
-
-	private
-		def login_params
-			params.require(:pessoa).permit(:email, :senha)
-		end
 
 	private
 		def pessoas_params

@@ -8,6 +8,8 @@
     <%= label_tag :Senha %><br>
     <%= password_field_tag :senha %>
   </p>
+    <%=flash[:error]%>
+    <br>
     <%= submit_tag "Entrar" %>
   </p>
 <% end %>

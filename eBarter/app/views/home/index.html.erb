@@ -1,0 +1,18 @@
+<ul class="horMenu">
+  <li>Configurações</li>
+  <li>Notificações</li>
+  <li>Sair</li>
+</ul>
+<div class="buscaProdutos">
+  <%= form_tag("/home") do %>
+    <p>
+      <%= text_field_tag 'email', nil, placeholder: 'Informações de um item' %>
+    </p>
+    <p>
+      <%= submit_tag "Pesquisar" %>
+    </p>
+  <% end %>
+</div>
+<ul class="verMenu">
+  <li><%= link_to 'Meus Dados', pessoas_path %></li>
+</ul>
