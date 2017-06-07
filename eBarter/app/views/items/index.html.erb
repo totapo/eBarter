@@ -1,0 +1,15 @@
+<% @itens.each do |item| %>
+<ul>
+  <li><%= item.nome %></li>
+  <li><%= item.descricao %></li>
+  <li><%= item.quantidade %></li>
+  <li><%= item.categoria.nome %></li>
+  <% if item.img_link %>
+    <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+  <% end %>
+  <li><%= link_to 'Editar', edit_item_path(id: item.id) %></li>
+</ul>
+<% end %>
+<ul>
+  <li><%= link_to 'Adicionar', new_item_path %></li>
+</ul>
