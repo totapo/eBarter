@@ -4,9 +4,9 @@
   <li>Sair</li>
 </ul>
 <div class="buscaProdutos">
-  <%= form_tag("/home") do %>
+  <%= form_tag("/pesquisar") do %>
     <p>
-      <%= text_field_tag 'email', nil, placeholder: 'Informações de um item' %>
+      <%= text_field_tag 'info_pesquisa', nil, placeholder: 'Informações de um item' %>
     </p>
     <p>
       <%= submit_tag "Pesquisar" %>
