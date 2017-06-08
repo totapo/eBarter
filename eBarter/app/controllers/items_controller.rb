@@ -37,6 +37,10 @@ class ItemsController < ApplicationController
 		redirect_to items_path
 	end
 
+	def nova_proposta
+		redirect_to new_proposta_path(id_dono: params[:id_dono], id_item: params[:id_item])
+	end
+
 	private
 		def items_params
 			params.require(:item).permit(:nome, :descricao, :quantidade, :categoria_id).merge(dono_id:session[:id_usuario])

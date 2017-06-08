@@ -2,7 +2,7 @@
   <strong>Nome:</strong>
   <%= @item.nome %>
 </p>
- 
+
 <p>
   <strong>Descrição:</strong>
   <%= @item.descricao %>
@@ -13,6 +13,13 @@
   <%= @item.categoria.nome %>
 </p>
 <p>
-  <strong>Mesma Categoria:</strong>
-  <%= @item.categoria.item.size %>
+  <strong>Dono:</strong>
+  <%= @item.pessoa.nome %>
+</p>
+<p>
+  <%= form_tag("/nova_proposta") do %>
+    <%= hidden_field_tag :id_dono, @item.pessoa.id %>
+    <%= hidden_field_tag :id_item, @item.id %>
+    <%= submit_tag "Fazer proposta" %>
+  <% end %>
 </p>
