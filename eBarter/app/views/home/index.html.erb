@@ -13,6 +13,22 @@
     </p>
   <% end %>
 </div>
+<br>
+<div class="resultado_pesquisa">
+  <% if @itens %>
+    <% @itens.each do |item|%>
+      <ul class = "item_list_class">
+        <li class="nome"><%= item.nome %></li>
+        <li class="quantidade"><%= item.quantidade %></li>
+        <li class="categoria"><%= item.categoria.nome %></li>
+        <% if item.img_link %>
+          <li class="imagem"><%= image_tag(item.img_link, :size => "260x180") %></li>
+        <% end %>
+        <%= link_to 'Visualizar Item', item_path(id: item.id) %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
 <ul class="verMenu">
   <li><%= link_to 'Meus Dados', pessoas_path %></li>
   <li><%= link_to 'Meus Itens', items_path %></li>
