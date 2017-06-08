@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
+  get 'logout', to: 'sessions#logout'
   get 'home', to: 'home#index'
   get 'edit_usuario', to: 'pessoas#edit'
   post 'edit_usuario', to: 'pessoas#update'
