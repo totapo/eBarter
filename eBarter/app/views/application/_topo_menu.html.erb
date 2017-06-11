@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="collapse navbar-collapse" id="navbar">
    <ul class="nav navbar-nav">
 
@@ -30,3 +31,37 @@
       </li>
    </ul>
  </div>
+=======
+<div class="collapse navbar-collapse" id="navbar">
+   <ul class="nav navbar-nav">
+
+   </ul>
+   <ul class="nav navbar-nav navbar-right">
+     <% if(!session[:id_usuario]) %>
+       <li class="signup">
+          <%= link_to new_pessoa_path do %>
+            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+          <%end%>
+       </li>
+       <li class="login">
+         <%= link_to login_path do%>
+            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+         <%end%>
+       </li>
+      <% else %>
+        <li class="configuracoes">
+          <%= link_to edit_usuario_path do %>
+            <span class="glyphicon glyphicon-cog"></span>
+            Configurações
+          <% end %>
+        </li>
+        <li class="logout">
+        <%= link_to logout_path do%>
+          <span class:"glyphicon glyphicon-log-out"></span>
+          Logout
+        <%end%>
+      <%end%>
+      </li>
+   </ul>
+ </div>
+>>>>>>> 337fac861e8b28f19a43f838b35d909487f3d03a
