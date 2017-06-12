@@ -12,7 +12,8 @@ class PessoasController < ApplicationController
 	end
 
 	def update
-		Pessoa.update(session[:id_usuario], pais: params[:pais], cidade: params[:cidade], estado: params[:estado])
+		@pessoa = Pessoa.find(session[:id_usuario])
+		Pessoa.update(@pessoa.id, pais: params[:pais], cidade: params[:cidade], estado: params[:estado])
 		redirect_to pessoas_path
 	end
 

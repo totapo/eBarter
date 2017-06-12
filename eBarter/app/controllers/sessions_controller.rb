@@ -12,11 +12,6 @@ class SessionsController < ApplicationController
 		end
 	end
 
-  def logout
-    reset_session
-    redirect_to root_path
-  end
-
 	def showError(message)
 		 flash[:error] = message
 		render :new

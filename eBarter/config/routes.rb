@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'edit_item', to: 'items#update'
   post 'pesquisar', to: 'home#pesquisar'
   post 'nova_proposta', to:'items#nova_proposta'
-  get 'new_proposta/:id_dono/:id_item', to:'propostas#new', as: 'new_proposta_w_id'
+  post 'ofertar_item_proposta', to: 'propostas#ofertar'
+  post 'adicionar_item_proposta', to: 'propostas#adicionar_item'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
