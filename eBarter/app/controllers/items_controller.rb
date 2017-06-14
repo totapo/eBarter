@@ -38,7 +38,7 @@ class ItemsController < ApplicationController
 	end
 
 	def nova_proposta
-		redirect_to new_proposta_path(id_dono: params[:id_dono], id_item: params[:id_item])
+		redirect_to new_proposta_path(id_item: params[:id_item])
 	end
 
 	private

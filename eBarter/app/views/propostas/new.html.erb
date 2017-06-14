@@ -1,3 +1,48 @@
 <h1>Nova Proposta</h1>
-<%=params[:id_dono]%>
 <%= @id_item %>
+<p>
+  Realizar proposta para:
+</p>
+<div>
+  Itens do usuário que receberá a proposta
+</div>
+<div>
+  <br>
+  <h2>Itens ofertados</h2>
+  <%if @itens_ofertados %>
+    <% @itens_ofertados.each do |item| %>
+      <ul>
+        <li><%= item.nome %></li>
+        <li><%= item.descricao %></li>
+        <li><%= item.quantidade %></li>
+        <li><%= item.categoria.nome %></li>
+        <% if item.img_link %>
+          <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <br>
+  <h2>Itens a serem selecionados</h2>
+  <%if @itens %>
+    <% @itens.each do |item| %>
+      <%= form_tag("/adicionar_item_proposta") do %>
+        <ul>
+          <li><%= item.nome %></li>
+          <li><%= item.descricao %></li>
+          <li><%= item.quantidade %></li>
+          <li><%= item.categoria.nome %></li>
+          <% if item.img_link %>
+            <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+          <% end %>
+        </ul>
+        <ul>
+          <%= hidden_field_tag 'id_item', item.id %>
+          <li><%= submit_tag 'Adicionar a Proposta' %></li>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
