@@ -15,20 +15,27 @@
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render 'headbar' %>
-  <div class="container">
+  <% if(!session[:id_usuario]) %>
+    <%= render 'headbar_login' %>
+  <% else %>
+    <%= render 'headbar'%>
+  <%end%>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3">
-        <%= render "sidebar" %>
-      </div>
-      <div class="col-md-6">
-        <%= yield %>
-      </div>
+      <% if(session[:id_usuario]) %>
+          <%= render "sidebar" %>
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <%= yield %>
+          </div>
+      <%else%>
+        <%=yield %>
+      <%end%>
+
     </div>
   </div>
-  <div id="modal-holder"></div>
 </body>
 </html>
