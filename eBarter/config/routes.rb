@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   post 'nova_proposta', to:'items#nova_proposta'
   post 'ofertar_item_proposta', to: 'propostas#ofertar'
   post 'adicionar_item_proposta', to: 'propostas#adicionar_item'
+  post 'remover_item_proposta', to: 'propostas#remover_item'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
