@@ -13,13 +13,15 @@ class PropostasController < ApplicationController
       if(metodo=="adicionar") #
         adicionar_item
       elsif (metodo=="remover")
-
-      @id_item = params[:id_item]
-      item = Item.find(@id_item)
-      dId = item.pessoa.id
+        remover_item
+      end
     else
 
     end
+
+    #@id_item = params[:id_item]
+    #item = Item.find(@id_item)
+    #dId = item.pessoa.id
 
     @itens = Item.where(dono_id: session[:id_usuario])
   end
