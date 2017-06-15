@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'edit_usuario', to: 'pessoas#edit'
   post 'edit_usuario', to: 'pessoas#update'
   post 'edit_item', to: 'items#update'
-  post 'pesquisar', to: 'home#pesquisar'
+  get 'pesquisar', to: 'home#pesquisar'
   post 'nova_proposta', to:'items#nova_proposta'
   post 'ofertar_item_proposta', to: 'propostas#ofertar'
   post 'adicionar_item_proposta', to: 'propostas#adicionar_item'

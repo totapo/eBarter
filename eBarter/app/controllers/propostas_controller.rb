@@ -1,6 +1,26 @@
 class PropostasController < ApplicationController
   def new
-    @id_item = params[:id_item]
+    if request.post?
+      val = params[:lista]
+      metodo = params[:op]
+      lista=[]
+      if(val=="0") #lista usuario logado
+        lista = session[:itens_ofertados]
+      else
+        lista = session[:itens_requeridos]
+      end
+
+      if(metodo=="adicionar") #
+        adicionar_item
+      elsif (metodo=="remover")
+
+      @id_item = params[:id_item]
+      item = Item.find(@id_item)
+      dId = item.pessoa.id
+    else
+
+    end
+
     @itens = Item.where(dono_id: session[:id_usuario])
   end
 

@@ -12,7 +12,7 @@
    </li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <%= form_tag("/pesquisar",class: "navbar-form navbar-right",role: "search") do %>
+    <%= form_tag("/pesquisar",method: :get, class: "navbar-form navbar-right",role: "search") do %>
        <%= text_field_tag 'info_pesquisa', nil, placeholder: 'Busca Item',class:"form-control mr-sm-2" %>
        <%= button_tag "Busca",class:"btn btn-default my-2 my-sm-0" %>
     <% end %>
