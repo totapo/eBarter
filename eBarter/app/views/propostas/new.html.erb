@@ -11,7 +11,7 @@
   <h2>Itens ofertados</h2>
   <%if @itens_ofertados %>
     <%  @itens_ofertados.each do |item| %>
-      <%= form_tag("/Excluir_item_proposta") do %>
+      <%= form_tag("/remover_item_proposta") do %>
         <ul>
           <li><%= item.nome %></li>
           <li><%= item.descricao %></li>
