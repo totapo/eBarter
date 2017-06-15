@@ -12,7 +12,7 @@ class PropostasController < ApplicationController
 
   def remover_item
     id_item = params[:id_item]
-    session[:itens_ofertados].delete id_item
+    session[:itens_ofertados] = session[:itens_ofertados] - ["#{id_item}"]
     inicia_tela
   end
 
