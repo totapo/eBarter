@@ -12,6 +12,13 @@ class SessionsController < ApplicationController
 		end
 	end
 
+  def logout
+    if(session[:id_usuario])
+      reset_session
+    end
+    redirect_to home_path
+  end
+
 	def showError(message)
 		 flash[:error] = message
 		render :new
