@@ -1,0 +1,22 @@
+<%if @itens_demandados %>
+  <%  @itens_demandados.each do |item| %>
+    <%= form_tag("/remover_item_demandado_proposta") do %>
+      <ul>
+        <li><%= item.nome %></li>
+        <li><%= item.descricao %></li>
+        <li><%= item.quantidade %></li>
+        <li><%= item.categoria.nome %></li>
+        <% if item.img_link %>
+          <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+        <% end %>
+        <%= hidden_field_tag 'id_item', item.id %>
+        <li><%= submit_tag 'Excluir' %></li>
+      </ul>
+    <% end %>
+    <%= form_tag("/alterar_quantidade_item_demandado_proposta") do %>
+        <%= hidden_field_tag 'id_item', item.id %>
+        <%= text_field_tag :quantidade, session[:quantidade_demandados]["#{item.id}"] %><br>
+        <%= submit_tag 'Alterar Quantidade' %></li>
+    <% end %>
+  <% end %>
+<% end %>

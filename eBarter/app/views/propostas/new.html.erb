@@ -1,54 +1,31 @@
 <h1>Nova Proposta</h1>
 <%= @id_item %>
 <p>
-  Realizar proposta para:
+  <h2>Realizar proposta para:</h2>
+  <%= render 'itens_demandados' %>
 </p>
 <div>
-  Itens do usuário que receberá a proposta
+  <h2>Itens do usuário que receberá a proposta</h2>
+  <%= render 'itens_dono' %>
 </div>
 <div id="itens_usuario">
   <div>
     <br>
     <h2>Itens ofertados</h2>
-    <%if @itens_ofertados %>
-      <%  @itens_ofertados.each do |item| %>
-        <%= form_tag("/remover_item_proposta") do %>
-          <ul>
-            <li><%= item.nome %></li>
-            <li><%= item.descricao %></li>
-            <li><%= item.quantidade %></li>
-            <li><%= item.categoria.nome %></li>
-            <% if item.img_link %>
-              <li><%= image_tag(item.img_link, :size => "260x180") %></li>
-            <% end %>
-            <%= hidden_field_tag 'id_item', item.id %>
-            <li><%= submit_tag 'Excluir' %></li>
-          </ul>
-        <% end %>
+    <%= render 'itens_ofertados' %>
+  </div>
+  <br>
+  <br>
+  <div>
+      <%= form_tag("/propostas") do %>
+        <%= label_tag :lbl_texto, "Texto adicional:" %><br>
+        <%= text_area_tag :texto %><br>
+        <%= submit_tag 'Concluir Proposta'%>
       <% end %>
-    <% end %>
   </div>
   <div>
     <br>
     <h2>Itens a serem selecionados</h2>
-    <%if @itens %>
-      <% @itens.each do |item| %>
-        <%= form_tag("/adicionar_item_proposta") do %>
-          <ul>
-            <li><%= item.nome %></li>
-            <li><%= item.descricao %></li>
-            <li><%= item.quantidade %></li>
-            <li><%= item.categoria.nome %></li>
-            <% if item.img_link %>
-              <li><%= image_tag(item.img_link, :size => "260x180") %></li>
-            <% end %>
-          </ul>
-          <ul>
-            <%= hidden_field_tag 'id_item', item.id %>
-            <li><%= submit_tag 'Adicionar a Proposta' %></li>
-          </ul>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'itens_usuario' %>
   </div>
 </div>

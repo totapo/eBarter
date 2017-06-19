@@ -16,5 +16,9 @@ Rails.application.routes.draw do
   post 'ofertar_item_proposta', to: 'propostas#ofertar'
   post 'adicionar_item_proposta', to: 'propostas#adicionar_item'
   post 'remover_item_proposta', to: 'propostas#remover_item'
+  post 'alterar_quantidade_item_proposta', to:'propostas#alterar_quantidade_ofertado'
+  post 'adicionar_item_demandado_proposta', to: 'propostas#adicionar_item_demandado'
+  post 'remover_item_demandado_proposta', to: 'propostas#remover_item_demandado'
+  post 'alterar_quantidade_item_demandado_proposta', to:'propostas#alterar_quantidade_demandado'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

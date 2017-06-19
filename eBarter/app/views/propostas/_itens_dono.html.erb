@@ -1,6 +1,6 @@
-<%if @itens %>
-  <% @itens.each do |item| %>
-    <%= form_tag("/adicionar_item_proposta") do %>
+<%if @itens_dono %>
+  <% @itens_dono.each do |item| %>
+    <%= form_tag("/adicionar_item_demandado_proposta") do %>
       <ul>
         <li><%= item.nome %></li>
         <li><%= item.descricao %></li>
