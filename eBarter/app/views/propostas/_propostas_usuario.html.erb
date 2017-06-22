@@ -1,0 +1,9 @@
+<%if @proposta_pessoal %>
+  <%  @proposta_pessoal.each do |proposta| %>
+      <ul>
+        <li>Destinatário: <%= proposta.pessoa.nome %></li>
+        <li>Remetente: <%= proposta.proposta.pessoa.nome %></li>
+        <li> <%= link_to 'Visualizar Proposta', proposta_path(id: proposta.id) %></li>
+      </ul>
+  <% end %>
+<% end %>

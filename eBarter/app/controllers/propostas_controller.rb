@@ -37,6 +37,18 @@ class PropostasController < ApplicationController
   end
 
   def show
+    id_proposta = params[:id]
+    @proposta = Proposta.find(id_proposta)
+    @itens_ofertados = @proposta.item.where(dono_id: session[:id_usuario])
+    @itens_demandados = @proposta.item.where.not(dono_id: session[:id_usuario])
+  end
+
+  def index
+    @proposta_pessoal = Pessoal.joins("
+      INNER JOIN
+        proposta ON proposta.id = pessoal.proposta_id
+      WHERE
+        destinatario_id = #{session[:id_usuario]} OR pessoa_id = #{session[:id_usuario]}")
   end
 
   def adicionar_item
@@ -88,6 +100,7 @@ class PropostasController < ApplicationController
         quant = session[:quantidade_demandados]["#{i}"]
         @proposta.envolve.create(item_id:i, quantidade:quant)
       end
+      @pessoal = Pessoal.create(proposta_id:@proposta.id, lances:1, destinatario_id:session[:id_dono])
       redirect_to proposta_path id: @proposta.id
   end
 

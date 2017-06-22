@@ -1,0 +1,13 @@
+<%if @itens_ofertados %>
+  <%  @itens_ofertados.each do |item| %>
+      <ul>
+        <li><%= item.nome %></li>
+        <li><%= item.descricao %></li>
+        <li><%= item.envolve.where(proposta_id:@proposta.id, item_id:item.id)[0].quantidade %></li>
+        <li><%= item.categoria.nome %></li>
+        <% if item.img_link %>
+          <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+        <% end %>
+      </ul>
+  <% end %>
+<% end %>
