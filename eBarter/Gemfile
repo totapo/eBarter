@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'kaminari'
 
+# Use mysql as the database for Active Record
+gem 'mysql2'
 group :production do
   gem 'pg'
 end
@@ -42,8 +44,6 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  # Use mysql as the database for Active Record
-  gem 'mysql2'
 end
 
 group :development do
