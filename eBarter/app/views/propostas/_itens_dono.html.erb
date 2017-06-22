@@ -1,19 +1,36 @@
 <%if @itens_dono %>
+<div id="itens" class="row list-group">
   <% @itens_dono.each do |item| %>
     <%= form_tag("/adicionar_item_demandado_proposta") do %>
-      <ul>
-        <li><%= item.nome %></li>
-        <li><%= item.descricao %></li>
-        <li><%= item.quantidade %></li>
-        <li><%= item.categoria.nome %></li>
-        <% if item.img_link %>
-          <li><%= image_tag(item.img_link, :size => "260x180") %></li>
-        <% end %>
-      </ul>
-      <ul>
-        <%= hidden_field_tag 'id_item', item.id %>
-        <li><%= submit_tag 'Adicionar a Proposta' %></li>
-      </ul>
+    <div class="item  list-group-item">
+        <div class="thumbnail">
+          <% if item.img_link %>
+            <%= image_tag(item.img_link, :size => "260x180") %></li>
+          <% else %>
+            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="">
+          <%end%>
+
+            <%= hidden_field_tag 'id_item', item.id %>
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                    <%= item.nome %></h4>
+                <p class="group inner list-group-item-text">
+                    <%= item.descricao %></p>
+                <p class="group inner list-group-item-text">
+                  <%= item.categoria.nome %></p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <p class="lead">
+                            <%= item.quantidade %></p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <%= submit_tag 'Adicionar a Proposta',:class=>"btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <% end %>
   <% end %>
+</div>
 <% end %>

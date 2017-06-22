@@ -1,16 +1,17 @@
 <h1>Nova Proposta</h1>
 <%= @id_item %>
+<div class="row">
 <p>
   <h2>Realizar proposta para:</h2>
   <%= render 'itens_demandados' %>
 </p>
-<div>
+</div>
+<div class="row">
   <h2>Itens do usuário que receberá a proposta</h2>
   <%= render 'itens_dono' %>
 </div>
 <div id="itens_usuario">
   <div>
-    <br>
     <h2>Itens ofertados</h2>
     <%= render 'itens_ofertados' %>
   </div>

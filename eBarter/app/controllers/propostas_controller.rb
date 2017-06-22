@@ -59,8 +59,17 @@ class PropostasController < ApplicationController
     if !session[:itens_ofertados]
       session[:itens_ofertados] = []
     end
-    session[:itens_ofertados].push id_item
-    session[:quantidade_ofertados]["#{id_item}"] = 1
+    bool = false
+    session[:itens_ofertados].each do |item|
+      if item == id_item
+        bool=true
+        break
+      end
+    end
+    if !bool
+      session[:itens_ofertados].push id_item
+      session[:quantidade_ofertados]["#{id_item}"] = 1
+    end
     inicia_tela
   end
 
@@ -72,8 +81,17 @@ class PropostasController < ApplicationController
     if !session[:itens_demandados]
       session[:itens_demandados] = []
     end
-    session[:itens_demandados].push id_item
-    session[:quantidade_demandados]["#{id_item}"] = 1
+    bool = false
+    session[:itens_demandados].each do |item|
+      if item == id_item
+        bool=true
+        break
+      end
+    end
+    if !bool
+      session[:itens_demandados].push id_item
+      session[:quantidade_demandados]["#{id_item}"] = 1
+    end
     inicia_tela
   end
 
