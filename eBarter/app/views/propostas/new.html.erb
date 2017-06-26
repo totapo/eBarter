@@ -21,7 +21,13 @@
       <%= form_tag("/propostas") do %>
         <%= label_tag :lbl_texto, "Texto adicional:" %><br>
         <%= text_area_tag :texto %><br>
-        <%= submit_tag 'Concluir Proposta'%>
+        <% if session[:contra_proposta] %>
+          <%= hidden_field_tag 'contra_proposta', true %>
+          <%= hidden_field_tag 'id', session[:id] %>
+          <%= submit_tag 'Concluir Contra Proposta', contra_proposta:true%>
+        <% else %>
+          <%= submit_tag 'Concluir Proposta', contra_proposta: false %>
+        <% end %>
       <% end %>
   </div>
   <div>
