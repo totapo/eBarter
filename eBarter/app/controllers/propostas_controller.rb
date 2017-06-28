@@ -19,19 +19,21 @@ class PropostasController < ApplicationController
         remover_item
       end
     else
-      init_sessions
+
       if params[:id_proposta]
-          id_proposta = params[:id_proposta]
-          @proposta = Proposta.find(id_proposta)
-          if @proposta.pessoa_id == session[:id_usuario]
-            session[:id_dono] = Pessoal.find(@proposta.id).destinatario_id
-          else
-            session[:id_dono] = @proposta.pessoa_id
-            session[:contra_proposta] = true
-            session[:id] = @proposta.id
-          end
-          preenche_sessions
-      else
+        init_sessions
+        id_proposta = params[:id_proposta]
+        @proposta = Proposta.find(id_proposta)
+        if @proposta.pessoa_id == session[:id_usuario]
+          session[:id_dono] = Pessoal.find(@proposta.id).destinatario_id
+        else
+          session[:id_dono] = @proposta.pessoa_id
+          session[:contra_proposta] = true
+          session[:id] = @proposta.id
+        end
+        preenche_sessions
+      elsif params[:id_item]
+        init_sessions
         session[:contra_proposta] = false
         id_item = params[:id_item]
         session[:itens_demandados].push id_item
@@ -40,7 +42,7 @@ class PropostasController < ApplicationController
         session[:quantidade_demandados]["#{id_item}"] = 1
       end
     end
-    inicia_tela
+    render_tela
   end
 
   def show
@@ -211,7 +213,8 @@ class PropostasController < ApplicationController
 
 
   private
-    def inicia_tela
+
+    def render_tela
       @itens_dono = Item.where(dono_id: session[:id_dono])
       @itens = Item.where(dono_id: session[:id_usuario])
       @itens_ofertados = []
@@ -223,6 +226,10 @@ class PropostasController < ApplicationController
         @itens_demandados.push Item.find(i)
       end
       render "new"
+    end
+
+    def inicia_tela
+      redirect_to new_proposta_path
     end
 
   private
