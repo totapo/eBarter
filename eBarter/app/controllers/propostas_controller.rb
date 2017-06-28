@@ -48,7 +48,9 @@ class PropostasController < ApplicationController
     @proposta = Proposta.find(id_proposta)
     @itens_ofertados = @proposta.item.where(dono_id: session[:id_usuario])
     @itens_demandados = @proposta.item.where.not(dono_id: session[:id_usuario])
-    if @proposta.estado == 0
+    if @proposta.pessoa_id != session[:id_usuario] && @proposta.estado == 1
+      @aceita = true
+    elsif @proposta.estado == 0
       @cancelada = true
     elsif @proposta.pessoa_id != session[:id_usuario] && @proposta.estado == 3
       @contraproposta = true
@@ -136,7 +138,8 @@ class PropostasController < ApplicationController
 
   def create_proposta
     print 'Create Proposta'
-    @proposta = Proposta.create(estado: 3, data_abertura: Time.now, pessoa_id: session[:id_usuario], texto: params['texto'])
+    data_abertura = Time.now.to_i * 1000
+    @proposta = Proposta.create(estado: 3, data_abertura: data_abertura, pessoa_id: session[:id_usuario], texto: params['texto'])
     itens_ofertados = []
     session[:itens_ofertados].each do |i|
       quant = session[:quantidade_ofertados]["#{i}"]
@@ -200,16 +203,12 @@ class PropostasController < ApplicationController
   def cancelar_proposta
     @proposta = Proposta.find(params[:id_proposta])
     @proposta.estado = 0
+    @proposta.data_encerramento = Time.now.to_i * 1000
     @proposta.save
     redirect_to propostas_path
   end
 
-  def confirmar_resposta
-    @proposta = Proposta.find(params[:id_proposta])
-    @proposta.estado = 2
-    @proposta.save
-    redirect_to new_troca_path
-  end
+
 
   private
     def inicia_tela
