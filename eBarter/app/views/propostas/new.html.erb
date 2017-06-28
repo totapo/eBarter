@@ -1,38 +1,57 @@
 <h1>Nova Proposta</h1>
 <%= @id_item %>
-<div class="row">
-<p>
-  <h2>Realizar proposta para:</h2>
-  <%= render 'itens_demandados' %>
-</p>
+<div>
+    <%= form_tag("/propostas") do %>
+      <%= label_tag :lbl_texto, "Texto adicional:" %><br>
+      <%= text_area_tag :texto %><br>
+      <% if session[:contra_proposta] %>
+        <%= hidden_field_tag 'contra_proposta', true %>
+        <%= hidden_field_tag 'id', session[:id] %>
+        <%= submit_tag 'Concluir Contra Proposta', :class=>"btn btn-success", contra_proposta:true%>
+      <% else %>
+        <%= submit_tag 'Concluir Proposta', :class=>"btn btn-success",contra_proposta: false %>
+      <% end %>
+    <% end %>
 </div>
 <div class="row">
-  <h2>Itens do usuário que receberá a proposta</h2>
-  <%= render 'itens_dono' %>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Itens requisitados</h3>
+        <%= render 'itens_demandados' %>
+      </div>
+
+      <div class="col-sm-6">
+          <h3>Itens ofertados</h3>
+          <%= render 'itens_ofertados' %>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6">
+          <h3>Itens usuário</h3>
+          <%= render 'itens_dono' %>
+      </div>
+
+      <div class="col-sm-6">
+        <h3>Itens a serem selecionados</h3>
+        <%= render 'itens_usuario' %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="itens_usuario">
   <div>
-    <h2>Itens ofertados</h2>
-    <%= render 'itens_ofertados' %>
+
   </div>
   <br>
   <br>
+
   <div>
-      <%= form_tag("/propostas") do %>
-        <%= label_tag :lbl_texto, "Texto adicional:" %><br>
-        <%= text_area_tag :texto %><br>
-        <% if session[:contra_proposta] %>
-          <%= hidden_field_tag 'contra_proposta', true %>
-          <%= hidden_field_tag 'id', session[:id] %>
-          <%= submit_tag 'Concluir Contra Proposta', contra_proposta:true%>
-        <% else %>
-          <%= submit_tag 'Concluir Proposta', contra_proposta: false %>
-        <% end %>
-      <% end %>
-  </div>
-  <div>
-    <br>
-    <h2>Itens a serem selecionados</h2>
-    <%= render 'itens_usuario' %>
+
   </div>
 </div>

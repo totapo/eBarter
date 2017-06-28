@@ -1,9 +1,9 @@
-<div>
+<div class="row list-group">
   <% @trocas.each do |troca|%>
-    <div>
+    <div class="item  list-group-item">
       <% bool = @usuario.id == troca.proposta.pessoa.id %>
       <% pessoal = troca.proposta.publica==nil %>
-      <p>Parceiro:
+      <p><b>Destinatário:</b>
         <% if(bool)%>
           <% if pessoal %>
             <%= troca.proposta.pessoal.pessoa.nome%>
@@ -15,7 +15,7 @@
         <%end%>
       </p>
 
-      <p>Tipo:
+      <p><b>Tipo:</b>
         <% if pessoal %>
           <%= "Pessoal" %>
         <% else %>
@@ -23,7 +23,7 @@
         <% end %>
       </p>
 
-      <p>Encerramento:
+      <p><b>Encerramento:</b>
         <% if(troca.estado<"2")%>
           <% secs = troca.data_encerramento/1000%>
           <% t = Time.at(secs)%>
@@ -33,14 +33,14 @@
         <%end%>
       </p>
 
-      <p>Estado: <%=troca.getEstado%></p>
+      <p><b>Estado:</b> <%=troca.getEstado%></p>
 
       <% if troca.estado=="2" %>
         <p>
         <% if bool %>
           <%= link_to "Avaliar", avaliar_troca_path(id: troca.id), :class=>"btn btn-success" %>
         <% else %>
-          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-success"%>
           <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
         <%end%>
         </p>
@@ -49,13 +49,13 @@
         <% if !bool %>
           <%= link_to "Avaliar", avaliar_troca_path(id: troca.id), :class=>"btn btn-success" %>
         <% else %>
-          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-success"%>
           <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
         <%end%>
         </p>
       <%elsif troca.estado=="4"%>
         <p>
-          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-success"%>
           <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
         </p>
       <% elsif troca.estado=="0"%>

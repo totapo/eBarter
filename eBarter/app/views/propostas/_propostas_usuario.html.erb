@@ -1,9 +1,12 @@
 <%if @proposta_pessoal %>
+  <div class="row list-group">
+
   <%  @proposta_pessoal.each do |proposta| %>
-      <ul>
-        <li>Destinatário: <%= proposta.pessoa.nome %></li>
-        <li>Remetente: <%= proposta.proposta.pessoa.nome %></li>
-        <li> <%= link_to 'Visualizar Proposta', proposta_path(id: proposta.id) %></li>
-      </ul>
+      <div class="item  list-group-item">
+        <p><b>Destinatário:</b> <%= proposta.pessoa.nome %></p>
+        <p><b>Remetente:</b> <%= proposta.proposta.pessoa.nome %></p>
+        <p><%= link_to 'Visualizar Proposta', proposta_path(id: proposta.id), :class=>"btn btn-primary" %></p>
+      </div>
   <% end %>
+  </div>
 <% end %>

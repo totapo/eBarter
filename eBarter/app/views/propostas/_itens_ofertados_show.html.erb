@@ -6,7 +6,7 @@
         <li><%= item.envolve.where(proposta_id:@proposta.id, item_id:item.id)[0].quantidade %></li>
         <li><%= item.categoria.nome %></li>
         <% if item.img_link %>
-          <li><%= image_tag(item.img_link, :size => "260x180") %></li>
+          <li><%= image_tag(item.img_link, :size => "120x120") %></li>
         <% end %>
       </ul>
   <% end %>

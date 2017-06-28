@@ -14,7 +14,7 @@
 
       <p>Encerramento:
         <% if(@troca.estado<"2")%>
-          <% secs = troca.data_encerramento/1000%>
+          <% secs = @troca.data_encerramento/1000%>
           <% t = Time.at(secs)%>
           <%= t.strftime("%m/%d/%Y %H:%M")%>
         <% else %>

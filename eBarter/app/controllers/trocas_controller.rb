@@ -29,6 +29,7 @@ class TrocasController < ApplicationController
         @trocas.push(pr.troca)
       end
     end
+    render "show"
   end
 
   def confirmar
@@ -38,10 +39,12 @@ class TrocasController < ApplicationController
     @usuario = Pessoa.find(session[:id_usuario])
     @troca = Troca.find(params[:id])
     @user1 = @troca.proposta.pessoa
+    @itens=nil
     if(@troca.proposta.publica)
       @user2 = @troca.proposta.publica.leilao.pessoa
     else
       @user2 = @troca.proposta.pessoal.pessoa
+      @itens = @troca.proposta.envolve
     end
 
     #estados
@@ -64,8 +67,19 @@ class TrocasController < ApplicationController
       @troca.estado="3"
     end
 
-    @troca.save
 
+    if(@troca.estado=="0")
+      @itens.each do |env|
+        @item = env.item
+        @item.quantidade = @item.quantidade-env.quantidade
+        if(@item.quantidade<0)
+          next
+        end
+        @item.save
+      end
+      @troca.data_encerramento= Time.now.to_i * 1000
+    end
+    @troca.save
     redirect_to trocas_path
   end
 
@@ -84,10 +98,7 @@ class TrocasController < ApplicationController
       end
 
       if(@user1.id==@usuario.id || @user2.id==@usuario.id)
-        @troca.estado=="1"
-        @troca.avaliacao.each do |aval|
-          aval.destroy
-        end
+        @troca.estado="1"
         @troca.save
       end
     end
