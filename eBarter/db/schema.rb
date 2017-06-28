@@ -46,16 +46,20 @@ ActiveRecord::Schema.define(version: 20170529004301) do
   end
 
   create_table "item", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "nome",         limit: 50,  null: false
-    t.string "descricao",    limit: 50,  null: false
-    t.bigint "quantidade",               null: false
-    t.bigint "dono_id",                  null: false
-    t.bigint "categoria_id",             null: false
+    t.string "nome",         limit: 50,    null: false
+    t.text   "descricao",    limit: 65535
+    t.bigint "quantidade",                 null: false
+    t.bigint "dono_id",                    null: false
+    t.bigint "categoria_id",               null: false
     t.string "img_link",     limit: 200
     t.index ["categoria_id"], name: "FKSe_enquadra_FK", using: :btree
     t.index ["dono_id"], name: "FKTem_Item_FK", using: :btree
   end
 
+  create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "leilao", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "data_abertura",                null: false
@@ -122,6 +126,11 @@ ActiveRecord::Schema.define(version: 20170529004301) do
 
   create_table "tag", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "nome", limit: 50, null: false
+  end
+
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "troca", id: :bigint, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

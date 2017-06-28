@@ -1,0 +1,72 @@
+<div>
+  <% @trocas.each do |troca|%>
+    <div>
+      <% bool = @usuario.id == troca.proposta.pessoa.id %>
+      <% pessoal = troca.proposta.publica==nil %>
+      <p>Parceiro:
+        <% if(bool)%>
+          <% if pessoal %>
+            <%= troca.proposta.pessoal.pessoa.nome%>
+          <% else %>
+            <%= troca.proposta.publica.leilao.pessoa.nome%>
+          <%end%>
+        <% else %>
+          <%= troca.proposta.pessoa.nome%>
+        <%end%>
+      </p>
+
+      <p>Tipo:
+        <% if pessoal %>
+          <%= "Pessoal" %>
+        <% else %>
+          <%= "Pública" %>
+        <% end %>
+      </p>
+
+      <p>Encerramento:
+        <% if(troca.estado<"2")%>
+          <% secs = troca.data_encerramento/1000%>
+          <% t = Time.at(secs)%>
+          <%= t.strftime("%m/%d/%Y %H:%M")%>
+        <% else %>
+          <%= "__/__/__"%>
+        <%end%>
+      </p>
+
+      <p>Estado: <%=troca.getEstado%></p>
+
+      <% if troca.estado=="2" %>
+        <p>
+        <% if bool %>
+          <%= link_to "Avaliar", avaliar_troca_path(id: troca.id), :class=>"btn btn-success" %>
+        <% else %>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
+        <%end%>
+        </p>
+      <% elsif troca.estado=="3" %>
+        <p>
+        <% if !bool %>
+          <%= link_to "Avaliar", avaliar_troca_path(id: troca.id), :class=>"btn btn-success" %>
+        <% else %>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
+        <%end%>
+        </p>
+      <%elsif troca.estado=="4"%>
+        <p>
+          <%= link_to "Confirmar", confirmar_troca_path(id:troca.id), :class=>"btn btn-primary"%>
+          <%= link_to "Cancelar", cancelar_troca_path(id:troca.id), :class=>"btn btn-danger"%>
+        </p>
+      <% elsif troca.estado=="0"%>
+        <p>
+          <%= link_to "Avaliar", avaliar_troca_path(id: troca.id), :class=>"btn btn-success" %>
+        </p>
+      <%end%>
+      <p>
+        <%= link_to 'Ver Proposta', proposta_path(id: troca.id), :class=>"btn btn-primary" %>
+      </p>
+
+    </div>
+  <%end%>
+</div>
