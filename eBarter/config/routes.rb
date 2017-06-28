@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   post 'alterar_quantidade_item_demandado_proposta', to:'propostas#alterar_quantidade_demandado'
   get 'aceitar_proposta', to:'propostas#aceitar_proposta'
   get 'cancelar_proposta', to: 'propostas#cancelar_proposta'
+  get 'confirmar_proposta', to: 'propostas#confirmar_proposta'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

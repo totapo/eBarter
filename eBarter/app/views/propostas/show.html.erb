@@ -4,5 +4,17 @@
 <%= render 'itens_demandados_show'%>
 <% if @contraproposta %>
   <%= link_to 'Realizar contra Proposta', new_proposta_path(id_proposta: @proposta.id)%>
+  <br>
   <%= link_to 'Aceitar Proposta', aceitar_proposta_path(id_proposta: @proposta.id)%>
+<% end %>
+<br>
+<% if @confirmar %>
+  <%= link_to 'Confirmar Proposta', confirmar_proposta_path(id_proposta: @proposta.id)%>
+<% end %>
+<% if @cancelada %>
+  <p>Esta proposta foi cancelada!</p>
+<% elsif @confirmada %>
+  <p>Esta proposta já foi confirmada!</p>
+<% else %>
+  <%= link_to 'Cancelar Proposta', cancelar_proposta_path(id_proposta: @proposta.id)%>
 <% end %>

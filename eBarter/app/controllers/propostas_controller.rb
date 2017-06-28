@@ -48,8 +48,14 @@ class PropostasController < ApplicationController
     @proposta = Proposta.find(id_proposta)
     @itens_ofertados = @proposta.item.where(dono_id: session[:id_usuario])
     @itens_demandados = @proposta.item.where.not(dono_id: session[:id_usuario])
-    if @proposta.pessoa_id != session[:id_usuario]
+    if @proposta.estado == 0
+      @cancelada = true
+    elsif @proposta.pessoa_id != session[:id_usuario] && @proposta.estado == 3
       @contraproposta = true
+    elsif @proposta.estado == 1
+      @confirmar = true
+    elsif @proposta.estado == 2
+      @confirmada = true
     end
   end
 
@@ -150,11 +156,11 @@ class PropostasController < ApplicationController
       if session[:quantidade_ofertados]["#{e.item_id}"]
         quant = session[:quantidade_ofertados]["#{e.item_id}"]
         e.update(quantidade: quant)
-        session[:itens_ofertados].delete(e.item_id)
+        session[:itens_ofertados].delete("#{e.item_id}")
       elsif session[:quantidade_demandados]["#{e.item_id}"]
         quant = session[:quantidade_demandados]["#{e.item_id}"]
         e.update(quantidade: quant)
-        session[:itens_demandados].delete(e.item_id)
+        session[:itens_demandados].delete("#{e.item_id}")
       else
         e.destroy
       end
@@ -188,14 +194,14 @@ class PropostasController < ApplicationController
     @proposta = Proposta.find(params[:id_proposta])
     @proposta.estado = 1
     @proposta.save
-    redirect_to proposta_path
+    redirect_to propostas_path
   end
 
   def cancelar_proposta
     @proposta = Proposta.find(params[:id_proposta])
     @proposta.estado = 0
     @proposta.save
-    redirect_to proposta_path
+    redirect_to propostas_path
   end
 
   def confirmar_resposta
