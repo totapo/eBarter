@@ -24,5 +24,7 @@ Rails.application.routes.draw do
   get 'avaliar_troca', to:'avaliacoes#avaliar'
   get 'confirmar_troca', to:'trocas#confirmar'
   get 'cancelar_troca', to:'trocas#cancelar'
+  get 'aceitar_proposta', to:'propostas#aceitar_proposta'
+  get 'cancelar_proposta', to: 'propostas#cancelar_proposta'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

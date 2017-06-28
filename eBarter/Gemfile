@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'kaminari'
 
+gem 'composite_primary_keys', '~> 9.0', '>= 9.0.7'
+
 # Use mysql as the database for Active Record
 gem 'mysql2'
 group :production do

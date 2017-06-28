@@ -4,4 +4,5 @@
 <%= render 'itens_demandados_show'%>
 <% if @contraproposta %>
   <%= link_to 'Realizar contra Proposta', new_proposta_path(id_proposta: @proposta.id)%>
+  <%= link_to 'Aceitar Proposta', aceitar_proposta_path(id_proposta: @proposta.id)%>
 <% end %>
