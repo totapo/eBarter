@@ -1,5 +1,9 @@
 class PropostasController < ApplicationController
   def new
+    #retirar
+    @pessoa = Pessoa.find(session[:id_usuario])
+    #retirar
+
     if request.post?
       val = params[:lista]
       metodo = params[:op]
@@ -104,12 +108,14 @@ class PropostasController < ApplicationController
   def remover_item
     id_item = params[:id_item]
     session[:itens_ofertados] = session[:itens_ofertados] - ["#{id_item}"]
+    session[:quantidade_ofertados].delete("#{id_item}")
     inicia_tela
   end
 
   def remover_item_demandado
     id_item = params[:id_item]
     session[:itens_demandados] = session[:itens_demandados] - ["#{id_item}"]
+    session[:quantidade_demandados].delete("#{id_item}")
     inicia_tela
   end
 
@@ -124,7 +130,7 @@ class PropostasController < ApplicationController
 
   def create_proposta
     print 'Create Proposta'
-    @proposta = Proposta.create(estado: 1, data_abertura: Time.now, pessoa_id: session[:id_usuario], texto: params['texto'])
+    @proposta = Proposta.create(estado: 3, data_abertura: Time.now, pessoa_id: session[:id_usuario], texto: params['texto'])
     itens_ofertados = []
     session[:itens_ofertados].each do |i|
       quant = session[:quantidade_ofertados]["#{i}"]
@@ -138,30 +144,28 @@ class PropostasController < ApplicationController
   end
 
   def create_contra_proposta
-    print 'Create contra Proposta'
     @proposta = Proposta.find(params[:id])
-    @proposta.update(data_abertura: Time.now, pessoa_id: session[:id_usuario], texto: params['texto'])
     @envolves = @proposta.envolve.all
     @envolves.each do |e|
       if session[:quantidade_ofertados]["#{e.item_id}"]
-        print session[:quantidade_ofertados]["#{e.item_id}"]
-        e.update(item_id:e.item_id, quantidade:session[:quantidade_ofertados]["#{e.item_id}"])
+        quant = session[:quantidade_ofertados]["#{e.item_id}"]
+        e.update(quantidade: quant)
         session[:itens_ofertados].delete(e.item_id)
       elsif session[:quantidade_demandados]["#{e.item_id}"]
-        print session[:quantidade_demandados]["#{e.item_id}"]
         quant = session[:quantidade_demandados]["#{e.item_id}"]
-        e.update(quantidade:quant)
+        e.update(quantidade: quant)
         session[:itens_demandados].delete(e.item_id)
       else
         e.destroy
       end
     end
     session[:itens_ofertados].each do |i|
-      @proposta.envolve.create(id_item:i, quantidade:session[:quantidade_ofertados]["#{i}"])
+      @proposta.envolve.create(item_id:i, quantidade:session[:quantidade_ofertados]["#{i}"])
     end
     session[:itens_demandados].each do |i|
-      @proposta.envolve.create(id_item:i, quantidade:session[:quantidade_demandados]["#{i}"])
+      @proposta.envolve.create(item_id:i, quantidade:session[:quantidade_demandados]["#{i}"])
     end
+    @proposta.update(data_abertura: Time.now, pessoa_id: session[:id_usuario], texto: params['texto'])
     @pessoal =  Pessoal.find(@proposta.id)
     @pessoal.update(lances:1, destinatario_id:session[:id_dono])
   end
@@ -178,6 +182,27 @@ class PropostasController < ApplicationController
     quant = params['quantidade']
     session[:quantidade_demandados]["#{id_item}"] = quant
     inicia_tela
+  end
+
+  def aceitar_proposta
+    @proposta = Proposta.find(params[:id_proposta])
+    @proposta.estado = 1
+    @proposta.save
+    redirect_to proposta_path
+  end
+
+  def cancelar_proposta
+    @proposta = Proposta.find(params[:id_proposta])
+    @proposta.estado = 0
+    @proposta.save
+    redirect_to proposta_path
+  end
+
+  def confirmar_resposta
+    @proposta = Proposta.find(params[:id_proposta])
+    @proposta.estado = 2
+    @proposta.save
+    redirect_to new_troca_path
   end
 
   private
@@ -199,10 +224,10 @@ class PropostasController < ApplicationController
     def preenche_sessions
       @proposta.envolve.each do |e|
         if(e.item.dono_id == session[:id_usuario])
-          session[:itens_ofertados].push e.item_id
+          session[:itens_ofertados].push e.item_id.to_s
           session[:quantidade_ofertados]["#{e.item_id}"] = e.quantidade
         else
-          session[:itens_demandados].push e.item_id
+          session[:itens_demandados].push e.item_id.to_s
           session[:quantidade_demandados]["#{e.item_id}"] = e.quantidade
         end
       end
