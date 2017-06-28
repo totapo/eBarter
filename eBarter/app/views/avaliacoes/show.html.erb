@@ -1,0 +1,52 @@
+<div>
+    <div>
+      <p>Parceiro:
+        <%= @destinatario.nome%>
+      </p>
+
+      <p>Tipo:
+        <% if @troca.proposta.pessoal!=nil %>
+          <%= "Pessoal" %>
+        <% else %>
+          <%= "Pública" %>
+        <% end %>
+      </p>
+
+      <p>Encerramento:
+        <% if(@troca.estado<"2")%>
+          <% secs = troca.data_encerramento/1000%>
+          <% t = Time.at(secs)%>
+          <%= t.strftime("%m/%d/%Y %H:%M")%>
+        <% else %>
+          <%= "__/__/__"%>
+        <%end%>
+      </p>
+
+      <p>
+        <%= link_to 'Ver Proposta', proposta_path(id: @troca.id), :class=>"btn btn-primary" %>
+      </p>
+
+      <%= form_tag("/cadastrar_avaliacao") do %>
+        <p>
+          Nota:
+          <%= text_field_tag :nota, @aval ? @aval.nota : "" %>
+        </p>
+
+      	<p>
+          Descricao:<br>
+          <%= text_area_tag :descricao, @aval ? @aval.descricao : "" %>
+        </p>
+        <%= hidden_field_tag :id_troca, @troca.id %>
+        <%= hidden_field_tag :id_destinatario, @destinatario.id %>
+        <p>
+          <%= submit_tag "Avaliar", :class=>"btn btn-success" %>
+        </p>
+        <p>
+          <% if flash[:message] %>
+      			<%= flash[:message]%>
+            <% flash[:message] = nil %>
+          <% end %>
+      	</p>
+      <% end %>
+    </div>
+</div>
