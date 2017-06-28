@@ -1,5 +1,19 @@
 class TrocasController < ApplicationController
-  def show
+
+  def create
+    @proposta = Proposta.find(params[:id_proposta])
+    @proposta.estado = 2
+    @proposta.data_encerramento = Time.now.to_i * 1000
+    @proposta.save
+
+    @troca = Troca.new
+    @troca.id = @proposta.id
+    @troca.estado = 4
+    @troca.save
+    redirect_to trocas_path
+  end
+
+  def index
     if(!session[:id_usuario])
       redirect_to login
     end

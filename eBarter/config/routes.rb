@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :items
 	resources :pessoas
   resources :propostas
+  resources :trocas
   root 'welcome#index'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -20,12 +21,12 @@ Rails.application.routes.draw do
   post 'adicionar_item_demandado_proposta', to: 'propostas#adicionar_item_demandado'
   post 'remover_item_demandado_proposta', to: 'propostas#remover_item_demandado'
   post 'alterar_quantidade_item_demandado_proposta', to:'propostas#alterar_quantidade_demandado'
-  get 'trocas', to:'trocas#show'
   get 'avaliar_troca', to:'avaliacoes#avaliar'
   get 'confirmar_troca', to:'trocas#confirmar'
   get 'cancelar_troca', to:'trocas#cancelar'
   get 'aceitar_proposta', to:'propostas#aceitar_proposta'
   get 'cancelar_proposta', to: 'propostas#cancelar_proposta'
   post 'cadastrar_avaliacao', to: 'avaliacoes#cadastrar'
+  get 'confirmar_proposta', to: 'propostas#confirmar_proposta'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -3,6 +3,23 @@
 <h2>Itens que você deseja</h2>
 <%= render 'itens_demandados_show'%>
 <% if @contraproposta %>
-  <%= link_to 'Realizar contra Proposta', new_proposta_path(id_proposta: @proposta.id)%>
-  <%= link_to 'Aceitar Proposta', aceitar_proposta_path(id_proposta: @proposta.id)%>
+  <%= link_to 'Realizar contra Proposta', new_proposta_path(id_proposta: @proposta.id),:class=>"btn btn-primary"%>
+  <br>
+  <%= link_to 'Aceitar Proposta', aceitar_proposta_path(id_proposta: @proposta.id),:class=>"btn btn-primary"%>
+<% end %>
+<br>
+<% if @confirmar%>
+<%= form_tag('/trocas') do %>
+  <%= hidden_field_tag 'id_proposta', @proposta.id %>
+  <%= submit_tag 'Confirmar Proposta',:class=>"btn btn-primary" %>
+  <% end %>
+<% end %>
+<% if @cancelada %>
+  <p>Esta proposta foi cancelada!</p>
+<% elsif @aceita %>
+  <p>Aguardando Confirmação do outro usuário</p>
+<% elsif @confirmada %>
+  <p>Esta proposta já foi confirmada!</p>
+<% else %>
+  <%= link_to 'Cancelar Proposta', cancelar_proposta_path(id_proposta: @proposta.id),:class=>"btn btn-primary"%>
 <% end %>
